@@ -11,7 +11,7 @@ namespace BetterCoinflips
   
         public override Version RequiredExiledVersion => new(8, 3, 9, 0);
         public override Version Version => new(4, 5, 1);
-        public override string Author => "Miki_hero, Nuhxly";
+        public override string Author => "Miki_hero";
         public override string Name => "BetterCoinflips";
         public override string Prefix => "better_cf";
 
