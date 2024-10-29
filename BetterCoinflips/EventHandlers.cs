@@ -13,8 +13,8 @@ namespace BetterCoinflips
 {
     public class EventHandlers
     {
-        private static Config Config => Plugin.Instance.Config;
-        private static Configs.Translations Translations => Plugin.Instance.Translation;
+        private static Config Cfg => Plugin.Instance.Config;
+        private static Configs.Translations TR => Plugin.Instance.Translation;
         private readonly System.Random _rd = new();
         
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
@@ -23,49 +23,53 @@ namespace BetterCoinflips
         //Dict of all good coin effect chances with an index
         private readonly Dictionary<int, int> _goodEffectChances = new()
         {
-            { 0, Config.KeycardChance },
-            { 1, Config.MedicalKitChance },
-            { 2, Config.TpToEscapeChance },
-            { 3, Config.HealChance },
-            { 4, Config.MoreHpChance },
-            { 5, Config.HatChance },
-            { 6, Config.RandomGoodEffectChance },
-            { 7, Config.OneAmmoLogicerChance },
-            { 8, Config.LightbulbChance },
-            { 9, Config.PinkCandyChance },
-            { 10, Config.BadRevoChance },
-            { 11, Config.EmptyHidChance },
-            { 12, Config.ForceRespawnChance },
-            { 13, Config.SizeChangeChance },
-            { 14, Config.RandomItemChance }
+            { 0, Cfg.KeycardChance },
+            { 1, Cfg.MedicalKitChance },
+            { 2, Cfg.TpToEscapeChance },
+            { 3, Cfg.HealChance },
+            { 4, Cfg.MoreHpChance },
+            { 5, Cfg.HatChance },
+            { 6, Cfg.RandomGoodEffectChance },
+            { 7, Cfg.OneAmmoLogicerChance },
+            { 8, Cfg.LightbulbChance },
+            { 9, Cfg.PinkCandyChance },
+            { 10, Cfg.BadRevoChance },
+            { 11, Cfg.EmptyHidChance },
+            { 12, Cfg.ForceRespawnChance },
+            { 13, Cfg.SizeChangeChance },
+            { 14, Cfg.RandomItemChance },
+            { 15, Cfg.BypassEffectChance },
         };
 
         //Dict of all bad coin effect chances with an index
         private readonly Dictionary<int, int> _badEffectChances = new()
         {
-            { 0, Config.HpReductionChance },
-            { 1, Config.TpToClassDCellsChance },
-            { 2, Config.RandomBadEffectChance },
-            { 3, Config.WarheadChance },
-            { 4, Config.LightsOutChance },
-            { 5, Config.LiveHeChance },
-            { 6, Config.TrollFlashChance },
-            { 7, Config.ScpTpChance },
-            { 8, Config.OneHpLeftChance },
-            { 9, Config.PrimedVaseChance },
-            { 10, Config.ShitPantsChance },
-            { 11, Config.FakeCassieChance },
-            { 12, Config.TurnIntoScpChance },
-            { 13, Config.InventoryResetChance },
-            { 14, Config.ClassSwapChance },
-            { 15, Config.InstantExplosionChance },
-            { 16, Config.PlayerSwapChance },
-            { 17, Config.KickChance },
-            { 18, Config.SpectSwapChance },
-            { 19, Config.TeslaTpChance },
-            { 20, Config.InventorySwapChance },
-            { 21, Config.RandomTeleportChance },
-            { 22, Config.HandcuffChance },
+            { 0, Cfg.HpReductionChance },
+            { 1, Cfg.TpToClassDCellsChance },
+            { 2, Cfg.RandomBadEffectChance },
+            { 3, Cfg.WarheadChance },
+            { 4, Cfg.LightsOutChance },
+            { 5, Cfg.LiveHeChance },
+            { 6, Cfg.TrollFlashChance },
+            { 7, Cfg.ScpTpChance },
+            { 8, Cfg.OneHpLeftChance },
+            { 9, Cfg.PrimedVaseChance },
+            { 10, Cfg.ShitPantsChance },
+            { 11, Cfg.FakeCassieChance },
+            { 12, Cfg.TurnIntoScpChance },
+            { 13, Cfg.InventoryResetChance },
+            { 14, Cfg.ClassSwapChance },
+            { 15, Cfg.InstantExplosionChance },
+            { 16, Cfg.PlayerSwapChance },
+            { 17, Cfg.KickChance },
+            { 18, Cfg.SpectSwapChance },
+            { 19, Cfg.TeslaTpChance },
+            { 20, Cfg.InventorySwapChance },
+            { 21, Cfg.RandomTeleportChance },
+            { 22, Cfg.HandcuffChance },
+            { 23, Cfg.ScpSizeChangeChance },
+            { 24, Cfg.ScpScaleChangeChance },
+            { 25, Cfg.PlayerScaleChangeChance },
         };
 
         private readonly Dictionary<string, DateTime> _cooldownDict = new();
@@ -73,11 +77,11 @@ namespace BetterCoinflips
         //helper method
         public static void SendBroadcast(Player pl, string message, bool showHint = false, bool isTails = false)
         {
-            pl.Broadcast(new Exiled.API.Features.Broadcast(message, Config.BroadcastTime), true);
+            pl.Broadcast(new Exiled.API.Features.Broadcast(message, Cfg.BroadcastTime), true);
 
-            if (showHint && Config.HintDuration > 0)
+            if (showHint && Cfg.HintDuration > 0)
             {
-                pl.ShowHint(isTails ? Translations.HintMessages.First() : Translations.HintMessages.ElementAt(1), Config.HintDuration);
+                pl.ShowHint(isTails ? TR.HintMessages.First() : TR.HintMessages.ElementAt(1), Cfg.HintDuration);
             }
         }
 
@@ -90,11 +94,11 @@ namespace BetterCoinflips
             bool helper = false; 
             //check if player is on cooldown
             bool flag = _cooldownDict.ContainsKey(ev.Player.RawUserId) 
-                        && (DateTime.UtcNow - _cooldownDict[ev.Player.RawUserId]).TotalSeconds < Config.CoinCooldown;
+                        && (DateTime.UtcNow - _cooldownDict[ev.Player.RawUserId]).TotalSeconds < Cfg.CoinCooldown;
             if (flag)
             {
                 ev.IsAllowed = false;
-                SendBroadcast(ev.Player, Translations.TossOnCooldownMessage);
+                SendBroadcast(ev.Player, TR.TossOnCooldownMessage);
                 Log.Debug($"{ev.Player.Nickname} tried to throw a coin on cooldown.");
                 return;
             }
@@ -105,7 +109,7 @@ namespace BetterCoinflips
             //check if coin has registered uses
             if (!CoinUses.ContainsKey(ev.Player.CurrentItem.Serial))
             {
-                CoinUses.Add(ev.Player.CurrentItem.Serial, _rd.Next(Config.MinMaxDefaultCoins[0], Config.MinMaxDefaultCoins[1]));
+                CoinUses.Add(ev.Player.CurrentItem.Serial, _rd.Next(Cfg.MinMaxDefaultCoins[0], Cfg.MinMaxDefaultCoins[1]));
                 Log.Debug($"Registered a coin, Uses Left: {CoinUses[ev.Player.CurrentItem.Serial]}");
                 //check if the newly registered coin has no uses
                 if (CoinUses[ev.Player.CurrentItem.Serial] < 1)
@@ -117,7 +121,7 @@ namespace BetterCoinflips
                     {
                         ev.Player.RemoveHeldItem();
                     }
-                    SendBroadcast(ev.Player, Translations.CoinNoUsesMessage);
+                    SendBroadcast(ev.Player, TR.CoinNoUsesMessage);
                     return;
                 }
             }
@@ -141,7 +145,7 @@ namespace BetterCoinflips
                 // Set a default value for headsEvent
                 int headsEvent = 2;
 
-                //magic loop to determine headsevent, takes into account chances for each item in the enumerated Dict
+                //magic loop to determine HeadsEvent, takes into account chances for each item in the enumerated Dict
                 foreach (KeyValuePair<int, int> kvp in _goodEffectChances)
                 {
                     if (randomNum <= kvp.Value)
@@ -155,7 +159,7 @@ namespace BetterCoinflips
                 
                 Log.Debug($"headsEvent = {headsEvent}");
 
-                //use headsevent to choose the effect and execute it
+                //use HeadsEvent to choose the effect and execute it
                 var effect = CoinFlipEffect.GoodEffects[headsEvent];
                 effect.Execute(ev.Player);
                 message = effect.Message;
@@ -164,10 +168,10 @@ namespace BetterCoinflips
             {
                 int totalChance = _badEffectChances.Values.Sum();
                 int randomNum = _rd.Next(1, totalChance + 1);
-                // Set a default value for headsEvent
+                // Set a default value for TailsEvent
                 int tailsEvent = 13;
 
-                //magic loop to determine headsevent, takes into account chances for each item in the enumerated Dict
+                //magic loop to determine TailsEvent, takes into account chances for each item in the enumerated Dict
                 foreach (KeyValuePair<int, int> kvp in _badEffectChances)
                 {
                     if (randomNum <= kvp.Value)
@@ -194,42 +198,42 @@ namespace BetterCoinflips
                 {
                     ev.Player.RemoveHeldItem();
                 }
-                message += Translations.CoinBreaksMessage;
+                message += TR.CoinBreaksMessage;
             }
 
             if (message != null)
             {
-                SendBroadcast(ev.Player, message, true, ev.IsTails);
+                SendBroadcast(ev.Player, message);
             }
         }
         
         //removing default coins
         public void OnSpawningItem(SpawningItemEventArgs ev)
         {
-            if (Config.DefaultCoinsAmount != 0 && ev.Pickup.Type == ItemType.Coin)
+            if (Cfg.DefaultCoinsAmount != 0 && ev.Pickup.Type == ItemType.Coin)
             {
-                Log.Debug($"Removed a coin, coins left to remove {Config.DefaultCoinsAmount}");
+                Log.Debug($"Removed a coin, coins left to remove {Cfg.DefaultCoinsAmount}");
                 ev.IsAllowed = false;
-                Config.DefaultCoinsAmount--;
+                Cfg.DefaultCoinsAmount--;
             }
         }
 
         //removing locker spawning coins and replacing the chosen item in SCP pedestals
         public void OnFillingLocker(FillingLockerEventArgs ev)
         {
-            if (ev.Pickup.Type == ItemType.Coin && Config.DefaultCoinsAmount != 0)
+            if (ev.Pickup.Type == ItemType.Coin && Cfg.DefaultCoinsAmount != 0)
             {
-                Log.Debug($"Removed a locker coin, coins left to remove {Config.DefaultCoinsAmount}");
+                Log.Debug($"Removed a locker coin, coins left to remove {Cfg.DefaultCoinsAmount}");
                 ev.IsAllowed = false;
-                Config.DefaultCoinsAmount--;
+                Cfg.DefaultCoinsAmount--;
             }
-            else if (ev.Pickup.Type == Config.ItemToReplace.ElementAt(0).Key
-                     && Config.ItemToReplace.ElementAt(0).Value != 0)
+            else if (ev.Pickup.Type == Cfg.ItemToReplace.ElementAt(0).Key
+                     && Cfg.ItemToReplace.ElementAt(0).Value != 0)
             {
-                Log.Debug($"Placed a coin, coins left to place: {Config.ItemToReplace.ElementAt(0).Value}. Replaced item: {ev.Pickup.Type}");
+                Log.Debug($"Placed a coin, coins left to place: {Cfg.ItemToReplace.ElementAt(0).Value}. Replaced item: {ev.Pickup.Type}");
                 ev.IsAllowed = false;
                 Pickup.CreateAndSpawn(ItemType.Coin, ev.Pickup.Position, new Quaternion());
-                Config.ItemToReplace[Config.ItemToReplace.ElementAt(0).Key]--;
+                Cfg.ItemToReplace[Cfg.ItemToReplace.ElementAt(0).Key]--;
             }
         }
     }

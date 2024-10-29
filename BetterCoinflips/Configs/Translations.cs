@@ -24,6 +24,7 @@ namespace BetterCoinflips.Configs
         public string ContainmentEngineerCardMessage { get; set; } = "You acquired a Containment Engineer keycard!";
         public string MediKitMessage { get; set; } = "You received a Medical Kit!";
         public string TpToEscapeMessage { get; set; } = "You can now escape! That's what you wanted right?";
+        public string BypassEffectMessage { get; set; } = "You can bypass all doors now!, i guess you don't need a keycard then..";
         public string MagicHealMessage { get; set; } = "You've been magically healed!";
         public string HealthIncreaseMessage { get; set; } = "You received 10% more hp!";
         public string NeatHatMessage { get; set; } = "You got a neat hat!";
@@ -34,29 +35,30 @@ namespace BetterCoinflips.Configs
         public string BadRevoMessage { get; set; } = "What is this abomination!?";
         public string EmptyHidMessage { get; set; } = "DID YOU JUST GET A MICRO HID!?";
         public string ForceRespawnMessage { get; set; } = "Someone respawned... probably.";
-        public string SizeChangeMessage { get; set; } = "You got gnomed.";
+        public string SizeChangeMessage { get; set; } = "!ضﺎﻳﺮﻟﺍ ةﺭﻮﻄﺳﺍ ﻼﻫﺎﻳ";
+        public string localScaleChangeMessage { get; set; } = "!نﻼﻳﻮﻃ ﻼﻫ ﺎﻳ";
         public string RandomItemMessage { get; set; } = "You got a random item!";
-
+        public string BunnyHopEffectMessage { get; set; } = "Phoon has Joined the game!";
 
         
         [Description("Here you can set the message for each of these bad coin effects.")]
         public string HpReductionMessage { get; set; } = "Your hp got reduced by 30%.";
-        public string TpToClassDCellsMessage { get; set; } = "You got teleported to Class D cells.";
+        public string TpToClassDCellsMessage { get; set; } = "You got teleported to Class D cells. home sweet home";
         public string TpToClassDCellsAfterWarheadMessage { get; set; } = "You were teleported into a radioactive zone.";
         public string RandomBadEffectMessage { get; set; } = "You got a random effect.";
         public string WarheadStopMessage { get; set; } = "The warhead has been stopped.";
-        public string WarheadStartMessage { get; set; } = "The warhead has been started.";
+        public string WarheadStartMessage { get; set; } = "IRONSTAN Presents: death by warhead.";
         public string LightsOutMessage { get; set; } = "Lights out.";
         public string LiveGrenadeMessage { get; set; } = "Watch your head!";
         public string TrollFlashMessage { get; set; } = "You heard something?";
         public string TpToRandomScpMessage { get; set; } = "You were teleported to an SCP.";
-        public string SmallDamageMessage { get; set; } = "You've lost 15hp.";
+        public string SmallDamageMessage { get; set; } = "Congratulation! You've lost 15hp.";
         public string HugeDamageMessage { get; set; } = "You've lost a lot of hp";
         public string PrimedVaseMessage { get; set; } = "Your grandma paid you a visit!";
         public string ShitPantsMessage { get; set; } = "You just shit your pants.";
         public string FakeScpKillMessage { get; set; } = "Did you just kill an SCP?!";
-        public string TurnIntoScpMessage { get; set; } = "Get SCP-fied LOL!";
-        public string InventoryResetMessage { get; set; } = "You lost your stuff.";
+        public string TurnIntoScpMessage { get; set; } = "Get SCP-fied SCP AWELAO TIME! KILL THEM NOW";
+        public string InventoryResetMessage { get; set; } = "You lost your stuff. LMAO GET FUCKED";
         public string ClassSwapMessage { get; set; } = "That's what I call an UNO reverse card!";
         public string InstantExplosionMessage { get; set; } = "You got smoked.";
         public string PlayerSwapMessage { get; set; } = "Your inventory was swapped with a random player.";
@@ -74,5 +76,7 @@ namespace BetterCoinflips.Configs
         public string RandomTeleportMessage { get; set; } = "You were randomly teleported.";
         public string RandomTeleportWarheadDetonatedMessage { get; set; } = "Warhead is detonated so you only got a candy.";
         public string HandcuffMessage { get; set; } = "You were arrested for uhh commiting war crimes... or something.";
+        public string ScpSizeChangeMessage { get; set; } = "ضﺎﻳﺮﻟﺍ ةﺭﻮﻄﺳﺍ رﺎﺻ ﻲﺋﺍﻮﺸﻋ ﻲﺑ ﻲﺳ سﺍ!";
+        public string ScpScaleChangeMessage { get; set; } = "!نﻼﻳﻮﻃ رﺎﺻ ﻲﺋﺍﻮﺸﻋ ﻲﺑ ﻲﺳ سﺍ";
     }
 }

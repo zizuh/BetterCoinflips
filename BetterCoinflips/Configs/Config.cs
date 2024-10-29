@@ -12,7 +12,7 @@ namespace BetterCoinflips.Configs
         public bool IsEnabled { get; set; } = true;
 
         [Description("Whether or not debug logs should be shown. Default: false")]
-        public bool Debug { get; set; } = false;
+        public bool Debug { get; set; } = true;
 
         [Description("The amount of base game spawned coins that should be removed. Default: 4")]
         public int DefaultCoinsAmount { get; set; } = 4;
@@ -83,25 +83,27 @@ namespace BetterCoinflips.Configs
             EffectType.RainbowTaste,
             EffectType.Scp1853,
             EffectType.Scp207,
-            EffectType.Vitality
+            EffectType.Vitality,
+            EffectType.Ghostly,
         };
 
         [Description("The % chance of receiving a Facility Manager keycard instead of a Containment Engineer one.")]
         public int RedCardChance { get; set; } = 15;
 
         [Description("The kick reason.")] 
-        public string KickReason { get; set; } = "The coin kicked your ass.";
+        public string KickReason { get; set; } = "The coin kicked your ass. ﺦﺨﺨﺨﺧ";
 
         [Description("The list of SCP's that you can turn into by using the coin.")]
-        public HashSet<RoleTypeId> ValidScps { get; set; } = new()
-        {
-            RoleTypeId.Scp049,
-            RoleTypeId.Scp096,
-            RoleTypeId.Scp106,
-            RoleTypeId.Scp173,
-            RoleTypeId.Scp0492,
-            RoleTypeId.Scp939,
-        };
+            public HashSet<RoleTypeId> ValidScps { get; set; } = new()
+            {
+                RoleTypeId.Scp049,
+                RoleTypeId.Scp096,
+                RoleTypeId.Scp106,
+                RoleTypeId.Scp173,
+                RoleTypeId.Scp0492,
+                RoleTypeId.Scp939,
+                RoleTypeId.Scp3114, // connect the SkeletonReborn mod to this list.
+            };
 
         [Description("List of ignored roles for the PlayerSwap effect (#17)")]
         public HashSet<RoleTypeId> PlayerSwapIgnoredRoles { get; set; } = new()
@@ -215,45 +217,50 @@ namespace BetterCoinflips.Configs
         };
 
         [Description("The chance of these good effects happening. It's a proportional chance not a % chance.")]
-        public int KeycardChance { get; set; } = 20;
+        public int KeycardChance { get; set; } = 25;
         public int MedicalKitChance { get; set; } = 35;
         public int TpToEscapeChance { get; set; } = 5;
-        public int HealChance { get; set; } = 10;
-        public int MoreHpChance { get; set; } = 10;
+        public int HealChance { get; set; } = 12;
+        public int MoreHpChance { get; set; } = 12;
         public int HatChance { get; set; } = 10;
         public int RandomGoodEffectChance { get; set; } = 30;
         public int OneAmmoLogicerChance { get; set; } = 1;
         public int LightbulbChance { get; set; } = 15;
-        public int PinkCandyChance { get; set; } = 10;
+        public int PinkCandyChance { get; set; } = 12;
         public int BadRevoChance { get; set; } = 5;
         public int EmptyHidChance { get; set; } = 5;
         public int ForceRespawnChance { get; set; } = 15;
         public int SizeChangeChance { get; set; } = 20;
         public int RandomItemChance { get; set; } = 35;
+        public int BypassEffectChance { get; set; } = 2; //set to 100 for debug
+        public int BunnyHopEffectChance { get; set; } = 16; //set to 100 for debug
 
         [Description("The chance of these bad effects happening. It's a proportional chance not a % chance.")]
         public int HpReductionChance { get; set; } = 20;
         public int TpToClassDCellsChance { get; set; } = 5;
         public int RandomBadEffectChance { get; set; } = 20;
-        public int WarheadChance { get; set; } = 10;
+        public int WarheadChance { get; set; } = 4;
         public int LightsOutChance { get; set; } = 20;
-        public int LiveHeChance { get; set; } = 30;
+        public int LiveHeChance { get; set; } = 28;
         public int TrollFlashChance { get; set; } = 50;
-        public int ScpTpChance { get; set; } = 20;
-        public int OneHpLeftChance { get; set; } = 15;
+        public int ScpTpChance { get; set; } = 8;
+        public int OneHpLeftChance { get; set; } = 12;
         public int PrimedVaseChance { get; set; } = 20;
-        public int ShitPantsChance { get; set; } = 40;
-        public int FakeCassieChance { get; set; } = 50;
-        public int TurnIntoScpChance { get; set; } = 30;
-        public int InventoryResetChance { get; set; } = 20;
-        public int ClassSwapChance { get; set; } = 10;
+        public int ShitPantsChance { get; set; } = 35;
+        public int FakeCassieChance { get; set; } = 24;
+        public int TurnIntoScpChance { get; set; } = 2;
+        public int InventoryResetChance { get; set; } = 16;
+        public int ClassSwapChance { get; set; } = 15;
         public int InstantExplosionChance { get; set; } = 10;
         public int PlayerSwapChance { get; set; } = 20;
-        public int KickChance { get; set; } = 5;
-        public int SpectSwapChance { get; set; } = 10;
-        public int TeslaTpChance { get; set; } = 15;
-        public int InventorySwapChance { get; set; } = 20;
-        public int HandcuffChance { get; set; } = 10;
-        public int RandomTeleportChance { get; set; } = 15;
+        public int KickChance { get; set; } = 1;
+        public int SpectSwapChance { get; set; } = 13;
+        public int TeslaTpChance { get; set; } = 12;
+        public int InventorySwapChance { get; set; } = 18;
+        public int HandcuffChance { get; set; } = 8;
+        public int RandomTeleportChance { get; set; } = 16;
+        public int ScpSizeChangeChance { get; set; } = 12; //set to 100 for debug
+        public int ScpScaleChangeChance { get; set; } = 14; //set to 100 for debug
+        public int PlayerScaleChangeChance { get; set; } = 20; //set to 100 for debug
     }
 }
